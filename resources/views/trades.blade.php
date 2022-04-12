@@ -28,10 +28,6 @@
         </div>
         <div class="col-4">
             <div>
-        <span class="badge bg-secondary" style="height: 50px">
-            {{$btcusdt['symbol']}} <br><br>
-            {{$btcusdt['price']}}
-        </span>
                 <span class="badge bg-warning text-dark" style="height: 50px">
             {{$btcusdt['symbol']}} <br><br>
             {{$btcusdt['price']}}
