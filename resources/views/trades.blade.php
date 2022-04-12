@@ -7,6 +7,7 @@
         <div class="col-8">
             <form class="row" method="post" action="{{route('trade.store')}}">
                 @csrf
+                <input type="hidden" name="saldo" value="{{$btcusdt['price']}}">
                 <div class="col-12 col-md-3 col-lg-3 my-2">
                     <input type="date" class="form-control" name="iscrizione" placeholder="data iscrizione">
                 </div>
@@ -30,7 +31,7 @@
             <div>
                 <span class="badge bg-warning text-dark" style="height: 50px">
             {{$btcusdt['symbol']}} <br><br>
-            {{$btcusdt['price']}}
+            {{number_format($btcusdt['price'], 3, ',', '.')}}
         </span>
             </div>
         </div>
@@ -46,7 +47,7 @@
                 <th scope="col">Data Iscrizione</th>
                 <th scope="col">Platform</th>
                 <th scope="col">Importo</th>
-                <th scope="col">Interessi</th>
+                <th scope="col">€/$</th>
             </tr>
             </thead>
             <tbody>
@@ -55,7 +56,13 @@
                     <td>{{$item->iscrizione_formattata}}</td>
                     <td>{{$item->platform->name}}</td>
                     <td>{{$item->importo_formattato}}</td>
-                    <td></td>
+                    <td>
+                        @if($item->saldo)
+                            <span class="badge {{$item->saldo - $btcusdt['price'] > 0 ? 'bg-danger' : 'bg-success'}}">
+                                {{ number_format((($btcusdt['price'] - $item->saldo) / $item->saldo) * 100, 2, ',', '.') }} %
+                            </span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>

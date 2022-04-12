@@ -16,7 +16,7 @@ class CreateTradesTable extends Migration
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
             $table->float('import');
-            $table->float('saldo')->nullable();
+            $table->double('saldo')->nullable();
             $table->foreignId('platform_id');
             $table->date('iscrizione');
             $table->foreign('platform_id')->on('platforms')->references('id');
