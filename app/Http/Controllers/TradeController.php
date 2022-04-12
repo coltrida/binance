@@ -20,11 +20,7 @@ class TradeController extends Controller
         $platforms = Platform::orderBy('name')->get();
 
         $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
-            'symbol' => 'BTCUSDT'
-        ]);
-
-        $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
-            'symbol' => 'BTCUSDT'
+            'symbol' => 'EURUSDT'
         ]);
 
         return view('trades', compact('trades', 'platforms', 'btcusdt'));
