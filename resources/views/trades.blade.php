@@ -68,5 +68,16 @@
                 </tr>
             @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-center">
+                        <div style="display: flex; justify-content: center">
+                            <div >
+                                {{$trades->links('vendor.pagination.bootstrap-4')}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 @stop

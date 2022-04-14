@@ -16,7 +16,7 @@ class TradeController extends Controller
      */
     public function index()
     {
-        $trades = Trade::with('platform')->latest()->get();
+        $trades = Trade::with('platform')->latest()->paginate(5);
         $platforms = Platform::orderBy('name')->get();
 
         $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
