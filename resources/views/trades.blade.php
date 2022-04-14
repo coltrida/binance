@@ -60,8 +60,8 @@
                     <td>{{$item->saldo}}</td>
                     <td>
                         @if($item->saldo)
-                            <span class="badge {{$item->saldo - $btcusdt['price'] > 0 ? 'bg-danger' : 'bg-success'}}">
-                                {{ number_format((($btcusdt['price'] - $item->saldo) / $item->saldo) * 100, 2, ',', '.') }} %
+                            <span class="badge {{$btcusdt['price'] - $item->saldo > 0 ? 'bg-danger' : 'bg-success'}}">
+                                {{ number_format((($item->saldo - $btcusdt['price']) / $item->saldo) * 100, 2, ',', '.') }} %
                             </span>
                         @endif
                     </td>
