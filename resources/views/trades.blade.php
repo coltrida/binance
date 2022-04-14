@@ -44,18 +44,20 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
-                <th scope="col">Data Iscrizione</th>
                 <th scope="col">Platform</th>
                 <th scope="col">Importo</th>
                 <th scope="col">€/$</th>
+                <th scope="col">delta</th>
             </tr>
             </thead>
             <tbody>
             @foreach($trades as $item)
                 <tr>
-                    <td>{{$item->iscrizione_formattata}}</td>
-                    <td>{{$item->platform->name}}</td>
+                    <td>
+                        {{$item->iscrizione_formattata}} <br> {{$item->platform->name}}
+                    </td>
                     <td>{{$item->importo_formattato}}</td>
+                    <td>{{$item->saldo}}</td>
                     <td>
                         @if($item->saldo)
                             <span class="badge {{$item->saldo - $btcusdt['price'] > 0 ? 'bg-danger' : 'bg-success'}}">
