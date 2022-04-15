@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\WarningMail;
+use App\Models\Trade;
 use App\Services\TradeService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -34,11 +35,18 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-       // $btcusdt = $tradeService->btcusdt();
         $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
             'symbol' => 'EURUSDT'
         ]);
 
-        \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', $btcusdt['price']));
+        $trades = Trade::with('platform')->get();
+        foreach ($trades as $trade){
+            $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
+            \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
+            if ($delta < 5){
+                \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
+            }
+        }
+       // \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', $btcusdt['price']));
     }
 }
