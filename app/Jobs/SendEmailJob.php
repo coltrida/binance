@@ -35,6 +35,10 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
        // $btcusdt = $tradeService->btcusdt();
-        \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', 5));
+        $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
+            'symbol' => 'EURUSDT'
+        ]);
+
+        \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', $btcusdt['price']));
     }
 }
