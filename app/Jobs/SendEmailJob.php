@@ -30,7 +30,6 @@ class SendEmailJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param TradeService $tradeService
      * @return void
      */
     public function handle()
