@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\SendEmailJob;
 use App\Mail\WarningMail;
 use App\Models\Platform;
 use Illuminate\Console\Scheduling\Schedule;
@@ -27,9 +28,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
+        /*$schedule->call(function () {
             \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', 4));
-        })->everyMinute();
+        })->everyMinute();*/
+
+        $schedule->job(new SendEmailJob())->everyMinute();
 
         // $schedule->command('inspire')->hourly();
         /*$schedule->call(function () {
