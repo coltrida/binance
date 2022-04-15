@@ -80,7 +80,7 @@ class FrontController extends Controller
     public function info()
     {
         $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
-            'symbol' => 'BTCUSDT'
+            'symbol' => 'SHIBUSDT'
         ]);
         return $btcusdt;
     }

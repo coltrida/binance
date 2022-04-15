@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoinController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\TradeController;
@@ -21,6 +22,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('info', [FrontController::class, 'info'])->name('info');
     Route::resource('platform', PlatformController::class);
     Route::resource('trade', TradeController::class);
+    Route::resource('coin', CoinController::class);
 });
 
 
