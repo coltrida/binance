@@ -32,7 +32,7 @@ class SendEmailJob implements ShouldQueue
      * @param TradeService $tradeService
      * @return void
      */
-    public function handle(TradeService $tradeService)
+    public function handle()
     {
        // $btcusdt = $tradeService->btcusdt();
         \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', 5));
