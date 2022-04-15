@@ -3,8 +3,7 @@
 namespace App\Console;
 
 use App\Mail\WarningMail;
-use App\Models\Trade;
-use Http;
+use App\Models\Platform;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -29,19 +28,23 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
-            /*$btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
+            \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', 4));
+        })->everyMinute();
+
+        // $schedule->command('inspire')->hourly();
+        /*$schedule->call(function () {
+            $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
                 'symbol' => 'EURUSDT'
-            ]);*/
-            $trades = Trade::with('platform')->get();
+            ]);
+            $trades = DB::table('trades')->get();
             foreach ($trades as $trade){
-                $delta = number_format((($trade->saldo - 1.080) / $trade->saldo) * 100, 2, ',', '.');
-//                $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
+                $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
                 \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
                 if ($delta < 5){
                     \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
                 }
             }
-        })->everyMinute();
+        })->everyMinute();*/
     }
 
     /**
