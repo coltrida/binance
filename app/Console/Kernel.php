@@ -27,27 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        /*$schedule->call(function () {
-            \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', 4));
-        })->everyMinute();*/
-
         $schedule->job(new SendEmailJob())->everyMinute();
-
-        // $schedule->command('inspire')->hourly();
-        /*$schedule->call(function () {
-            $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
-                'symbol' => 'EURUSDT'
-            ]);
-            $trades = DB::table('trades')->get();
-            foreach ($trades as $trade){
-                $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
-                \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
-                if ($delta < 5){
-                    \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
-                }
-            }
-        })->everyMinute();*/
     }
 
     /**
