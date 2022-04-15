@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\WarningMail;
+use App\Services\TradeService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Http;
@@ -28,13 +29,12 @@ class SendEmailJob implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param TradeService $tradeService
      * @return void
      */
-    public function handle()
+    public function handle(TradeService $tradeService)
     {
-        $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
-            'symbol' => 'EURUSDT'
-        ]);
+        $btcusdt = $tradeService->btcusdt();
         \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', $btcusdt['price']));
     }
 }
