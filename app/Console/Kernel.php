@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new SendEmailJob())->everyMinute();
+        $schedule->job(new SendEmailJob())->dailyAt('13:00');
     }
 
     /**
