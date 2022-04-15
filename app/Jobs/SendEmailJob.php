@@ -40,13 +40,13 @@ class SendEmailJob implements ShouldQueue
         ]);
 
         $trades = Trade::with('platform')->get();
-        foreach ($trades as $trade){
+        /*foreach ($trades as $trade){
             $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
             if ($delta < -4){
                 \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
                 \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
             }
-        }
+        }*/
        // \Mail::to('coltrida@gmail.com')->send(new WarningMail('pippo', $btcusdt['price']));
     }
 }
