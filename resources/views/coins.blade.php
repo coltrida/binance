@@ -42,12 +42,12 @@
                         {{$item->acquisizione}} <br> {{$item->ticker}}
                     </td>
                     <td>
-                        acq:{{$item->prezzoAcquisto}} <br>
-                        att:{{$variazioni[$item->id]['price']}}
+                        acq: {{ number_format($item->prezzoAcquisto, 7, ',', '.') }} <br>
+                        att: &nbsp;{{ number_format($variazioni[$item->id]['price'], 7, ',', '.') }}
                     </td>
                     <td>{{$item->quantita}}</td>
                     <td>
-                        {{ $variazioni[$item->id]['price'] - $item->prezzoAcquisto}}
+                        {{ number_format($variazioni[$item->id]['price'] - $item->prezzoAcquisto, 7, ',', '.') }}
                     </td>
                 </tr>
             @endforeach

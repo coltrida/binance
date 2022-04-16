@@ -17,7 +17,7 @@ class CreateCoinsTable extends Migration
             $table->id();
             $table->date('acquisizione');
             $table->string('ticker');
-            $table->float('prezzoAcquisto');
+            $table->float('prezzoAcquisto', 10, 7);
             $table->float('quantita');
             $table->timestamps();
         });
