@@ -1,7 +1,7 @@
 @extends('layouts.stile')
 
 @section('content')
-    <h2>Inserisci trade</h2>
+    <h2>Inserisci Staking</h2>
 
     <div class="row">
         <div class="col-8">
@@ -9,10 +9,10 @@
                 @csrf
                 <input type="hidden" name="saldo" value="{{$btcusdt['price']}}">
                 <div class="col-12 col-md-3 col-lg-3 my-2">
-                    <input type="date" class="form-control" name="iscrizione" placeholder="data iscrizione">
+                    <input type="date" required class="form-control" name="iscrizione" placeholder="data iscrizione">
                 </div>
                 <div class="col-12 col-md-3 col-lg-3 my-2">
-                    <select name="platform_id" class="form-select">
+                    <select name="platform_id" required class="form-select">
                         <option></option>
                         @foreach($platforms as $platform)
                             <option value="{{$platform->id}}">{{$platform->name}}</option>
@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-3 col-lg-3 my-2">
-                    <input type="text" class="form-control" name="import" placeholder="importo in euro">
+                    <input type="text" required class="form-control" name="import" placeholder="importo in euro">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
                     <button type="submit" class="btn btn-primary mb-3">Inserisci</button>
@@ -57,7 +57,7 @@
                         {{$item->iscrizione_formattata}} <br> {{$item->platform->name}}
                     </td>
                     <td>{{$item->importo_formattato}}</td>
-                    <td>{{$item->saldo}}</td>
+                    <td>{{ number_format($item->saldo, 3, ',', '.') }}</td>
                     <td>
                         @if($item->saldo)
                             <span class="badge {{$btcusdt['price'] - $item->saldo > 0 ? 'bg-danger' : 'bg-success'}}">

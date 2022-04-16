@@ -46,7 +46,7 @@ class CoinController extends Controller
     public function store(Request $request)
     {
         $importo = str_replace(',', '.', $request->prezzoAcquisto) ;
-        //dd($importo);
+
         Coin::create([
             'acquisizione' => $request->acquisizione,
             'ticker' => $request->ticker,
