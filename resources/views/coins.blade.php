@@ -47,7 +47,7 @@
                     </td>
                     <td>{{$item->quantita}}</td>
                     <td>
-                        <span class="badge {{$variazioni[$item->id]['price'] - $item->prezzoAcquisto > 0 ? 'bg-danger' : 'bg-success'}}">
+                        <span class="badge {{$variazioni[$item->id]['price'] - $item->prezzoAcquisto < 0 ? 'bg-danger' : 'bg-success'}}">
                         {{ number_format( ((($variazioni[$item->id]['price'] * (float)$item->quantita)  -
                                     ($item->prezzoAcquisto * (float)$item->quantita)) /
                                     ($item->prezzoAcquisto * (float)$item->quantita)) * 100, 3, ',', '.') }} %
