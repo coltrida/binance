@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         acq: {{ number_format($item->prezzoAcquisto, 7, ',', '.') }} <br>
-                        att: &nbsp;{{ number_format($variazioni[$item->id]['price'], 7, ',', '.') }}
+                        att: &nbsp;{{ number_format($variazioni[$item->id]['price'], 3, ',', '.') }}
                     </td>
                     <td>{{$item->quantita}}</td>
                     <td>
@@ -68,4 +68,6 @@
                 </tr>
             </tfoot>
         </table>
+
+    <h2>Totale Portafoglio</h2>
 @stop
