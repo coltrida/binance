@@ -47,8 +47,9 @@
                     </td>
                     <td>{{$item->quantita}}</td>
                     <td>
-                        {{ number_format( ($variazioni[$item->id]['price'] * (float)$item->quantita)  -
-                                    ($item->prezzoAcquisto * (float)$item->quantita), 7, ',', '.') }}
+                        {{ number_format( (($variazioni[$item->id]['price'] * (float)$item->quantita)  -
+                                    ($item->prezzoAcquisto * (float)$item->quantita)) /
+                                    ($item->prezzoAcquisto * (float)$item->quantita), 7, ',', '.') }} %
                     </td>
                 </tr>
             @endforeach
