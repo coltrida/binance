@@ -69,5 +69,5 @@
             </tfoot>
         </table>
 
-    <h2>Totale Portafoglio</h2>
+    <h2>Totale Portafoglio {{number_format($totalePortafoglio, 3, ',', '.')}}</h2>
 @stop

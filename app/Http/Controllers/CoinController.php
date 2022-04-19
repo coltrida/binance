@@ -16,15 +16,17 @@ class CoinController extends Controller
     public function index()
     {
         $variazioni = [];
+        $totalePortafoglio = 0;
         $coins = Coin::orderBy('ticker')->get();
 
         foreach ($coins as $item){
             $variazioni[$item->id] = Http::get('https://api.binance.com/api/v3/ticker/price', [
                 'symbol' => $item->ticker.'USDT'
             ]);
+            $totalePortafoglio += (float)$coins->quantita * (float)$variazioni[$item->id]['price'];
         }
         $coins = Coin::orderBy('ticker')->paginate(5);
-        return view('coins', compact('coins', 'variazioni'));
+        return view('coins', compact('coins', 'variazioni', 'totalePortafoglio'));
     }
 
     /**
