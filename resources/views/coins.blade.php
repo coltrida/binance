@@ -33,6 +33,7 @@
                 <th scope="col">prezzi</th>
                 <th scope="col">qta</th>
                 <th scope="col">Delta</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +53,16 @@
                                     ($item->prezzoAcquisto * (float)$item->quantita)) /
                                     ($item->prezzoAcquisto * (float)$item->quantita)) * 100, 3, ',', '.') }} %
                         </span>
+                    </td>
+                    <td>
+                        <form action="{{route('coin.destroy', [ 'coin' => $item->id])}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button title="elimina" type="submit">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
             @endforeach

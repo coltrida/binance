@@ -27,7 +27,7 @@ class CoinController extends Controller
             $totalePortafoglio += (float)$item->quantita * (float)$variazioni[$item->id]['price'];
             $totaleOriginale += (float)$item->quantita * (float)$item->prezzoAcquisto;
         }
-        $coins = Coin::orderBy('ticker')->paginate(5);
+        $coins = Coin::orderBy('ticker')->paginate(10);
         return view('coins', compact('coins', 'variazioni', 'totalePortafoglio', 'totaleOriginale'));
     }
 
@@ -51,12 +51,19 @@ class CoinController extends Controller
     {
         $importo = str_replace(',', '.', $request->prezzoAcquisto);
 
-        Coin::create([
-            'acquisizione' => $request->acquisizione,
-            'ticker' => $request->ticker,
-            'prezzoAcquisto' => (float)$importo,
-            'quantita' => $request->quantita
-        ]);
+        $coinEsistente = Coin::where('ticker', $request->ticker)->first();
+
+        if ($coinEsistente) {
+
+        } else{
+            Coin::create([
+                'acquisizione' => $request->acquisizione,
+                'ticker' => $request->ticker,
+                'prezzoAcquisto' => (float)$importo,
+                'quantita' => $request->quantita
+            ]);
+        }
+
         return redirect()->back();
     }
 
@@ -97,11 +104,12 @@ class CoinController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Coin $coin
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Coin $coin)
     {
-        //
+        $coin->delete();
+        return redirect()->back();
     }
 }
