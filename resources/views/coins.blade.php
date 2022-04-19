@@ -7,16 +7,16 @@
             <form class="row" method="post" action="{{route('coin.store')}}">
                 @csrf
                 <div class="col-12 col-md-2 col-lg-2 my-2">
-                    <input type="date" class="form-control" name="acquisizione" >
+                    <input required type="date" class="form-control" name="acquisizione" >
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
-                    <input type="text" class="form-control" name="ticker" placeholder="ticker">
+                    <input required type="text" class="form-control" name="ticker" placeholder="ticker">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
-                    <input type="text" class="form-control" name="prezzoAcquisto" placeholder="prezzo di acquisto">
+                    <input required type="text" class="form-control" name="prezzoAcquisto" placeholder="prezzo di acquisto">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
-                    <input type="text" class="form-control" name="quantita" placeholder="quantita">
+                    <input required type="text" class="form-control" name="quantita" placeholder="quantita">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
                     <button type="submit" class="btn btn-primary mb-3">Inserisci</button>
@@ -47,7 +47,8 @@
                     </td>
                     <td>{{$item->quantita}}</td>
                     <td>
-                        {{ number_format($variazioni[$item->id]['price'] - $item->prezzoAcquisto, 7, ',', '.') }}
+                        {{ number_format( ($variazioni[$item->id]['price'] * (float)$item->quantita)  -
+                                    ($item->prezzoAcquisto * (float)$item->quantita), 7, ',', '.') }}
                     </td>
                 </tr>
             @endforeach
