@@ -58,7 +58,7 @@
                         <form action="{{route('coin.destroy', [ 'coin' => $item->id])}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button title="elimina" type="submit">
+                            <button class="btn btn-danger" title="elimina" type="submit">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
