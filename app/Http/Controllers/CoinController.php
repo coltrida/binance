@@ -17,6 +17,7 @@ class CoinController extends Controller
     {
         $variazioni = [];
         $totalePortafoglio = 0;
+        $totaleOriginale = 0;
         $coins = Coin::orderBy('ticker')->get();
 
         foreach ($coins as $item){
@@ -24,9 +25,10 @@ class CoinController extends Controller
                 'symbol' => $item->ticker.'USDT'
             ]);
             $totalePortafoglio += (float)$item->quantita * (float)$variazioni[$item->id]['price'];
+            $totaleOriginale += (float)$item->quantita * (float)$item->prezzoAcquisto;
         }
         $coins = Coin::orderBy('ticker')->paginate(5);
-        return view('coins', compact('coins', 'variazioni', 'totalePortafoglio'));
+        return view('coins', compact('coins', 'variazioni', 'totalePortafoglio', 'totaleOriginale'));
     }
 
     /**
