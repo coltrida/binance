@@ -51,7 +51,7 @@ class CoinController extends Controller
     {
         $importo = str_replace(',', '.', $request->prezzoAcquisto);
 
-        $coinEsistente = Coin::where('ticker', $request->ticker)->first();
+        /*$coinEsistente = Coin::where('ticker', $request->ticker)->first();
 
         if ($coinEsistente) {
 
@@ -62,7 +62,14 @@ class CoinController extends Controller
                 'prezzoAcquisto' => (float)$importo,
                 'quantita' => $request->quantita
             ]);
-        }
+        }*/
+
+        Coin::create([
+            'acquisizione' => $request->acquisizione,
+            'ticker' => $request->ticker,
+            'prezzoAcquisto' => (float)$importo,
+            'quantita' => $request->quantita
+        ]);
 
         return redirect()->back();
     }
