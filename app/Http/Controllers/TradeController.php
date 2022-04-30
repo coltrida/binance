@@ -17,13 +17,15 @@ class TradeController extends Controller
     public function index()
     {
         $trades = Trade::with('platform')->orderBy('iscrizione', 'DESC')->paginate(10);
+        $totInvestimento = $trades->sum('import');
         $platforms = Platform::orderBy('name')->get();
+
 
         $btcusdt = Http::get('https://api.binance.com/api/v3/ticker/price', [
             'symbol' => 'EURUSDT'
         ]);
 
-        return view('trades', compact('trades', 'platforms', 'btcusdt'));
+        return view('trades', compact('trades', 'platforms', 'btcusdt', 'totInvestimento'));
     }
 
     /**

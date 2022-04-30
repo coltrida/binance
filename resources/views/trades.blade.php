@@ -80,4 +80,5 @@
                 </tr>
             </tfoot>
         </table>
+    <h3>Tot. Invstimento = {{$totInvestimento}}</h3>
 @stop
