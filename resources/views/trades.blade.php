@@ -80,5 +80,5 @@
                 </tr>
             </tfoot>
         </table>
-    <h3>Tot. Invstimento = {{$totInvestimento}}</h3>
+    <h3>Tot. Invstimento = € {{ number_format($totInvestimento, 0, ',', '.') }}</h3>
 @stop
