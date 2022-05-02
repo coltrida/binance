@@ -18,11 +18,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',  [FrontController::class, 'index'])->name('index');
+Route::get('/controllo',  [FrontController::class, 'controllo']);
+Route::get('/info',  [FrontController::class, 'info']);
+
 Route::middleware(['auth'])->group(function (){
     Route::get('info', [FrontController::class, 'info'])->name('info');
     Route::resource('platform', PlatformController::class);
     Route::resource('trade', TradeController::class);
+    Route::get('aperture', [TradeController::class, 'aperture'])->name('aperture.trade');
+    Route::post('aperture', [TradeController::class, 'apertureStore'])->name('aperture.store');
     Route::resource('coin', CoinController::class);
+    Route::get('valutazioni', [CoinController::class, 'valutazioni'])->name('coin.valutazioni');
+    Route::post('valutazioni', [CoinController::class, 'eseguiValutazioni'])->name('coin.esegui.valutazioni');
 });
 
 

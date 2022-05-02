@@ -35,4 +35,14 @@ class Platform extends Model
     {
         return $this->hasMany(Trade::class);
     }
+
+    public function scopeAperture($query)
+    {
+        return $query->where('name', 'like', '%Aperture%');
+    }
+
+    public function scopeNonaperture($query)
+    {
+        return $query->where('name', 'not like', '%Aperture%');
+    }
 }

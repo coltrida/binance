@@ -49,4 +49,18 @@ class Trade extends Model
     {
         return $this->belongsTo(Platform::class);
     }
+
+    public function scopeAperture($query)
+    {
+        return $query->whereHas('platform', function($p){
+            $p->where('name', 'like', '%Aperture%');
+        });
+    }
+
+    public function scopeNonaperture($query)
+    {
+        return $query->whereDoesntHave('platform', function($p){
+            $p->where('name', 'like', '%Aperture%');
+        });
+    }
 }

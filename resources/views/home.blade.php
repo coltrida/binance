@@ -21,6 +21,18 @@
                        class="btn btn-lg btn-secondary fw-bold border-white bg-white">Portafoglio coins</a>
                 </p>
             </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <p class="lead">
+                    <a href="{{route('aperture.trade')}}" style="width: 250px"
+                       class="btn btn-lg btn-secondary fw-bold border-white bg-white">Aperture Finance</a>
+                </p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <p class="lead">
+                    <a href="{{route('coin.valutazioni')}}" style="width: 250px"
+                       class="btn btn-lg btn-secondary fw-bold border-white bg-white">Valutazioni Coin</a>
+                </p>
+            </div>
         </div>
     @endauth
 @stop
