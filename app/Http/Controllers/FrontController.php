@@ -159,11 +159,43 @@ class FrontController extends Controller
             'symbol' => 'EURUSDT'
         ]);
 
-        $trades = Trade::with('platform')->get();
-        foreach ($trades as $trade){
+        $tradesNonAperture = Trade::nonaperture()->with('platform')->get();
+        $tradesAperture = Trade::aperture()->with('platform')->get();
+
+        foreach ($tradesNonAperture as $trade){
             $delta = number_format((($trade->saldo - $btcusdt['price']) / $trade->saldo) * 100, 2, ',', '.');
             if ((float)$delta < -4){
                 \Mail::to('coltrida@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
+                \Mail::to('coltricat75@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
+            }
+        }
+
+        foreach ($tradesAperture as $item){
+            $simbolo = Str::substr($item->platform->name, 11);
+
+            $coin = Http::get('https://api.binance.com/api/v3/ticker/price', [
+                'symbol' => $simbolo.'USDT'
+            ]);
+
+            if(!isset($coin['price'])){
+
+                $response = Http::withHeaders([
+                    'X-RapidAPI-Host' => 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+                    'X-RapidAPI-Key' => '6d9727b350msh6d5d731383e0c40p166b61jsn7705b35f552b'
+                ])->get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes', [
+                    'region' => 'US',
+                    'symbols' => $simbolo
+                ]);
+
+                $variazione = $response->json()['quoteResponse']['result'][0]['regularMarketPrice'];
+            } else {
+                $variazione = $coin['price'];
+            }
+
+            $delta = number_format((($variazione - $item->saldo) / $item->saldo) * 100, 2, ',', '.');
+
+            if ((float)$delta > 60){
+                \Mail::to('coltrida@gmail.com')->send(new WarningMail($item->platform->name, $delta));
                 \Mail::to('coltricat75@gmail.com')->send(new WarningMail($trade->platform->name, $delta));
             }
         }

@@ -22,6 +22,9 @@
                     <input type="text" required class="form-control" name="import" placeholder="importo in euro">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 my-2">
+                    <input type="text" required class="form-control" name="apr" placeholder="apr">
+                </div>
+                <div class="col-12 col-md-1 col-lg-1 my-2">
                     <button type="submit" class="btn btn-primary mb-3">Inserisci</button>
                 </div>
             </form>
@@ -37,6 +40,7 @@
             <tr>
                 <th scope="col">Platform</th>
                 <th scope="col">Importo</th>
+                <th scope="col">APR</th>
                 <th scope="col">delta</th>
             </tr>
             </thead>
@@ -47,6 +51,7 @@
                         {{$item->iscrizione_formattata}} <br> {{$item->platform->name}}
                     </td>
                     <td>{{$item->importo_formattato}}</td>
+                    <td>{{number_format($item->apr, 2, ',', '.')}} %</td>
                     <td>
                         @if(isset($variazioni[$item->id]['price']))
                             acq: {{ number_format($item->saldo, 3, ',', '.') }} <br> att: {{ number_format($variazioni[$item->id]['price'], 3, ',', '.') }}
